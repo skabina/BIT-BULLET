@@ -1,0 +1,178 @@
+/* --- СКИДАННЯ ТА БАЗА --- */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: #0f0; /* Класичний зелений хакерський */
+    font-family: 'VT323', monospace; /* Піксельний шрифт */
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Канвас на весь екран ззаду */
+#matrix-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Найнижчий шар */
+    opacity: 0.8;
+}
+
+/* Інтерфейс поверх матриці */
+.game-interface {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    background: rgba(0, 0, 0, 0.7); /* Трішки затемнюємо фон під текстом */
+    padding: 40px;
+    border: 1px solid #0f0;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+}
+
+/* Заголовок з ефектом глюку */
+h1 {
+    font-size: 4rem;
+    margin: 0;
+    text-shadow: 2px 2px 0px #003300;
+    letter-spacing: 5px;
+}
+
+#status {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #0aff0a;
+}
+
+/* Величезна цифра */
+#target-number {
+    font-size: 12rem;
+    line-height: 1;
+    font-weight: bold;
+    text-shadow: 0 0 15px #0f0;
+    margin: 10px 0;
+}
+
+/* --- ТЕРМІНАЛЬНИЙ ВВІД --- */
+.terminal-input-wrapper {
+    font-size: 4rem;
+    margin: 20px 0;
+    cursor: text;
+    display: inline-block;
+    border-bottom: 2px solid transparent; /* Щоб не скакало */
+}
+
+.prompt {
+    color: #00cc00;
+    margin-right: 10px;
+}
+
+#visual-input {
+    color: #fff; /* Введені цифри білі, щоб виділялись */
+    text-shadow: 0 0 10px #fff;
+}
+
+/* Блимаючий нижній курсор */
+.cursor {
+    color: #0f0;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Прихований інпут (він працює, але його не видно) */
+#hidden-input {
+    position: absolute;
+    opacity: 0;
+    top: -1000px;
+}
+
+.hint {
+    color: #005500;
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+
+/* --- СТАНИ (WIN/LOSE) --- */
+.win-mode #target-number { color: #ffff00; text-shadow: 0 0 20px #ffff00; }
+.lose-mode #target-number { color: #ff0000; text-shadow: 0 0 20px #ff0000; }
+.lose-mode { border-color: red !important; box-shadow: 0 0 20px red !important; }
+
+
+
+
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999; /* Поверх усього */
+    pointer-events: none; /* Щоб можна було клікати крізь нього */
+    
+    /* 1. ВІНЬЄТКА (Затемнення по краях) */
+    background: radial-gradient(
+        circle, 
+        rgba(0, 0, 0, 0) 50%, 
+        rgba(0, 0, 0, 0.4) 80%, 
+        rgba(0, 0, 0, 0.9) 100%
+    );
+
+    /* 2. Ефект випуклого екрану (внутрішня тінь) */
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.9);
+}
+
+/* 3. СКАН-ЛІНІЇ (Смужки) */
+.crt-overlay::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.25) 50%
+    );
+    background-size: 100% 4px; /* Товщина ліній */
+    z-index: 2;
+}
+
+/* 4. ЛЕГКЕ МЕРЕХТІННЯ (Анімація) */
+.crt-overlay::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.02);
+    opacity: 0;
+    z-index: 2;
+    animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+    0% { opacity: 0.02; }
+    50% { opacity: 0.05; }
+    100% { opacity: 0.02; }
+}
+
+/* ЕФЕКТ RGB-ЗСУВУ (Хроматична аберація) для тексту */
+/* Додай цей клас до body або контейнера гри, якщо хочеш, щоб текст теж "роздвоювався" */
+.glitch-effect {
+    text-shadow: 
+        2px 0 rgba(255, 0, 0, 0.5), 
+        -2px 0 rgba(0, 0, 255, 0.5);
+}

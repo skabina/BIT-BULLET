@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIT BULLET | Matrix Mode</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="crt-overlay"></div>
+    
+    <canvas id="matrix-bg"></canvas>
+
+    <div class="game-interface">
+        <h1 class="glitch" data-text="BIT_BULLET">BIT-BULLET</h1>
+        
+        <div id="status">WAIT</div>
+        
+        <div class="target-container">
+            <div id="target-number">{{ target_value }}</div>
+        </div>
+        
+        <div class="terminal-input-wrapper" onclick="focusInput()">
+            <span class="prompt">></span>
+            <span id="visual-input"></span><span class="cursor">_</span>
+        </div>
+        
+        <input type="text" id="hidden-input" autocomplete="off" maxlength="8">
+        
+        <div class="hint">[ENTER] TO EXECUTE</div>
+    </div>
+
+    <script src="/static/script.js" defer></script>
+</body>
+</html>
