@@ -50,6 +50,22 @@ h1 {
     color: #0aff0a;
 }
 
+#timer {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00, 0 0 20px #003300;
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-family: 'VT323', monospace;
+    animation: timer-pulse 0.6s infinite;
+}
+
+@keyframes timer-pulse {
+    0%, 100% { opacity: 1; text-shadow: 0 0 10px #00ff00, 0 0 20px #003300; }
+    50% { opacity: 0.7; text-shadow: 0 0 5px #00ff00; }
+}
+
 /* Величезна цифра */
 #target-number {
     font-size: 12rem;
@@ -103,9 +119,29 @@ h1 {
 }
 
 /* --- СТАНИ (WIN/LOSE) --- */
-.win-mode #target-number { color: #ffff00; text-shadow: 0 0 20px #ffff00; }
-.lose-mode #target-number { color: #ff0000; text-shadow: 0 0 20px #ff0000; }
-.lose-mode { border-color: red !important; box-shadow: 0 0 20px red !important; }
+.lose-mode {
+    border-color: red !important;
+    box-shadow: 0 0 20px red !important;
+}
+
+
+.lose-mode #target-number,
+.lose-mode #status {
+    color: #ff0000;
+    text-shadow: 0 0 20px #ff0000;
+}
+
+.warning-mode {
+    border-color: #ffe600 !important;
+    box-shadow: 0 0 20px #ffe600!important;
+}
+
+
+.warning-mode #target-number,
+.warning-mode #status {
+    color: #ffe600;
+    text-shadow: 0 0 20px #ffe600;
+}
 
 
 
